@@ -40,6 +40,7 @@ model User {
   lastname         String
   email            String             @unique
   password         String
+  phonenumber      String
   role             UserRole           @default(CUSTOMER)
   carts            Cart[]      //Adding reverse relations, more easy to get data
   createdAt        DateTime           @default(now())
@@ -90,6 +91,7 @@ model Cart {
   id               Int                @id @default(autoincrement())
   user             User               @relation(fields: [user_id], references: [id])
   user_id          Int
+  address          String
   status           CartStatus         @default(ACTIVE)
   items            CartItem[]     //Adding reverse relations, more easy to get data
   createdAt        DateTime           @default(now())
