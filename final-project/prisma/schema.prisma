@@ -25,6 +25,15 @@ enum CartStatus {
   DELETED
 }
 
+enum Size {
+  XS
+  S
+  M
+  L
+  XL
+  F
+}
+
 model User {
   id               Int                @id @default(autoincrement())
   firstname        String
@@ -72,7 +81,7 @@ model Category {
   category_name    String
   description      String
   image            String
-  products         Product[]  //Adding reverse relations, more easy to get data
+  products         Product[]     //Adding reverse relations, more easy to get data
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
 }
@@ -94,6 +103,7 @@ model CartItem {
   product          Product            @relation(fields: [product_id], references: [id])
   product_id       Int
   quantity         Int
+  size             Size               @default(F)
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
 }
