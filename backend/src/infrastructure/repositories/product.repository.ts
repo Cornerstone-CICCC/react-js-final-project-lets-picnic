@@ -5,46 +5,6 @@ import { ProductCreateInput } from "../../domain/repositories/product.repository
 import { SecondaryImage } from "../../domain/entities/secondaryImage.entity";
 import { Tag } from "../../domain/entities/tag.entity";
 
-// const mapRowToProduct = (row: any): Product => {
-//   const category = new Category(
-//     row.category_id,
-//     row.category_name,
-//     row.category_description,
-//     row.category_image,
-//     row.category_created_at,
-//     row.category_updated_at,
-//   );
-
-//   const secondary_images = new SecondaryImage(
-//     row.secondary_image_id,
-//     row.secondary_image,
-//     row.secondary_image_created_at,
-//     row.secondary_image_updated_at,
-//   );
-
-//   const tags = new Tag(
-//     row.tag_id,
-//     row.tag_name,
-//     row.tag_created_at,
-//     row.tag_updated_at,
-//   );
-
-//   return new Product(
-//     row.product_id ?? row.id,
-//     row.product_name,
-//     category,
-//     row.price,
-//     row.product_image ?? row.image,
-//     [] as SecondaryImage[],
-//     [] as Tag[],
-//     row.product_description ?? row.description,
-//     row.discount_percentage,
-//     row.rating,
-//     row.sku,
-//     row.created_at,
-//     row.updated_at,
-//   );
-// };
 const mapRowsToProduct = (rows: any[]): Product => {
   const firstRow = rows[0];
 
