@@ -12,6 +12,8 @@ import { connectDb } from './infrastructure/database/dbClient'
 import userRouter from './interfaces/http/routes/user.routes'
 import categoryRouter from './interfaces/http/routes/category.routes'
 import productRouter from './interfaces/http/routes/product.routes'
+import cartRouter from './interfaces/http/routes/cart.routes'
+import paymentRouter, { paymentController } from './interfaces/http/routes/payment.routes'
 import secondaryImageRouter from './interfaces/http/routes/secondaryImage.routes';
 import tagRouter from './interfaces/http/routes/tag.routes';
 
@@ -23,6 +25,7 @@ app.use(cors({
   origin: "http://localhost:5173", // React port
   credentials: true // allow cookie transfer
 }))
+app.post('/webhook', express.raw({ type: 'application/json' }), paymentController.webhook)
 app.use(express.json());
 const SIGN_KEY = process.env.COOKIE_SIGN_KEY
 const ENCRYPT_KEY = process.env.COOKIE_ENCRYPT_KEY
@@ -40,6 +43,8 @@ app.use(cookieSession({
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter)
+app.use('/cart', cartRouter)
+app.use('/payment', paymentRouter)
 app.use('/secondary_image', secondaryImageRouter)
 app.use('/tag', tagRouter)
 

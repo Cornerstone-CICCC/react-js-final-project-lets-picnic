@@ -90,7 +90,7 @@ export class Product {
     this.touchUpdatedAt();
   }
 
-  updateImage(image: string): void {
+  updateMainImage(image: string): void {
     this._mainImage = image;
     this.touchUpdatedAt();
   }
