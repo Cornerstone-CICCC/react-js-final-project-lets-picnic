@@ -68,7 +68,7 @@ export function createTagController (tagService: TagService) {
           res.status(404).json({ error: "Tag not found" });
           return;
         }
-        res.status(204).send(); // No content
+        res.status(200).json({ message: "Tag deleted" });
       } catch (err) {
         console.error("Error deleting tag:", err);
         res.status(500).json({ error: "Internal Server Error" });

@@ -217,6 +217,142 @@ Get a category by ID.
 }
 ```
 
+## SecondaryImage
+
+### `GET /secondary_image/`
+List secondary_images.
+
+**Response**
+```json
+[
+  {
+    "id": 1,
+    "image": "url",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+]
+```
+
+### `POST /secondary_image/`
+Create a secondary image.
+
+**Request**
+```json
+{
+  "image": "url"
+}
+```
+
+**Response**
+```json
+{
+    "id": 160,
+    "image": "test-url",
+    "createdAt": "2025-06-11T22:17:05.962Z",
+    "updatedAt": "2025-06-11T22:17:05.962Z"
+}
+```
+
+### `DELETE /secondary_image/:secondaryImageId`
+Remove a category.
+
+**Response**
+```json
+{ "message": "Secondary image deleted" }
+```
+
+### `GET /secondary_image/:secondaryImageId`
+Get a secondary image by ID.
+
+**Response**
+```json
+{
+    "id": 160,
+    "image": "test-url",
+    "createdAt": "2025-06-11T22:17:05.962Z",
+    "updatedAt": "2025-06-11T22:17:05.962Z"
+}
+```
+
+## Tag
+
+### `GET /tag/`
+List tags.
+
+**Response**
+```json
+[
+  {
+    "id": 1,
+    "tagName": "cute",
+    "createdAt": "2025-06-11T05:52:44.777Z",
+    "updatedAt": "2025-06-11T05:52:44.777Z"
+  },{}
+]
+```
+
+### `POST /tag/`
+Create a tag.
+
+**Request**
+```json
+{
+  "tagName": "cute",
+}
+```
+
+**Response**
+```json
+{
+    "id": 1,
+    "tagName": "cute",
+    "createdAt": "2025-06-11T05:52:44.777Z",
+    "updatedAt": "2025-06-11T05:52:44.777Z"
+}
+```
+
+### `PUT /tag/:tagId`
+Update a tag.
+
+**Request**
+```json
+{
+  "tagName": "Updated"
+}
+```
+
+**Response**
+```json
+{
+  "id": 1,
+  "tagName": "Updated",
+  "createdAt": "2025-06-11T05:52:44.777Z",
+  "updatedAt": "2025-06-11T05:52:44.777Z"
+}
+```
+
+### `DELETE /tag/:tagId`
+Remove a tag.
+
+**Response**
+```json
+{ "message": "Tag deleted" }
+```
+
+### `GET /tag/:tagId`
+Get a tag by ID.
+
+**Response**
+```json
+{
+  "id": 55,
+  "tagName": "oval",
+  "createdAt": "2025-06-11T17:30:40.118Z",
+  "updatedAt": "2025-06-11T17:30:40.118Z"
+}
+```
+
 ## Product
 
 ### `GET /product/`
@@ -227,17 +363,34 @@ List products.
 [
   {
     "id": 1,
-    "productName": "CK One",
-    "category": { "id": 1, "categoryName": "Perfume" },
-    "price": 9.99,
-    "mainImage": "url",
-    "description": "desc",
-    "discountPercentage": 0,
-    "rating": 4.5,
-    "sku": "ABC123",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
+    "productName": "Blue & Black Check Shirt",
+    "category": {
+        "id": 1,
+        "categoryName": "mens-shirts",
+        "description": "Comfortable and stylish shirts for men",
+        "image": "https://example.com/images/mens-shirts.jpg",
+        "createdAt": "2025-06-09T18:28:29.840Z",
+        "updatedAt": "2025-06-09T18:28:29.840Z"
+    },
+    "price": "30.10",
+    "mainImage": "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/thumbnail.webp",
+    "secondaryImages": [
+        {
+            "id": 6,
+            "image": "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/4.webp"
+        }
+    ],
+    "tag": [
+        { "id": 1,"tagName": "cute"},
+        { "id": 12, "tagName": "belt"}
+    ],
+    "description": "The Blue & Black Check Shirt is a stylish and comfortable men's shirt featuring a classic check pattern. Made from high-quality fabric, it's suitable for both casual and semi-formal occasions.",
+    "discountPercentage": 15,
+    "rating": "3.64",
+    "sku": "DUMMY-83",
+    "createdAt": "2025-06-11T16:43:01.318Z",
+    "updatedAt": "2025-06-11T16:43:01.318Z"
+  },
 ]
 ```
 
@@ -246,32 +399,47 @@ Create a product.
 
 **Request**
 ```json
+
 {
-  "productName": "CK One",
-  "categoryId": 1,
-  "price": 9.99,
-  "mainImage": "url",
-  "description": "desc",
-  "discountPercentage": 0,
-  "rating": 4.5,
-  "sku": "ABC123"
+  "productName": "test3",
+  "categoryId": 3,
+  "price": 79.99,
+  "mainImage": "https://example.com/images/main-dress.jpg",
+  "secondaryImages": [
+    "https://example.com/images/dress-side.jpg",
+    "https://example.com/images/dress-back.jpg"
+  ],
+  "tagIds": [1, 3, 5],
+  "description": "An elegant evening dress perfect for parties.",
+  "discountPercentage": 15,
+  "rating": 4.7,
+  "sku": "DRESS-ELE-001"
 }
 ```
 
 **Response**
 ```json
 {
-  "id": 1,
-  "productName": "CK One",
-  "category": { "id": 1, "categoryName": "Perfume" },
-  "price": 9.99,
-  "mainImage": "url",
-  "description": "desc",
-  "discountPercentage": 0,
-  "rating": 4.5,
-  "sku": "ABC123",
-  "createdAt": "2024-01-01T00:00:00.000Z",
-  "updatedAt": "2024-01-01T00:00:00.000Z"
+    "id": 48,
+    "productName": "test3",
+    "category": {
+        "id": 3,
+        "categoryName": "mens-watches",
+        "description": "Elegant watches to complete your look",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYRfANVWf-Tbw-KasKwVCZ4wGDN4v4ZKT2JA&s",
+        "createdAt": "2025-06-09T18:29:20.086Z",
+        "updatedAt": "2025-06-09T18:29:20.086Z"
+    },
+    "price": "79.99",
+    "mainImage": "https://example.com/images/main-dress.jpg",
+    "secondaryImages": [],
+    "tag": [],
+    "description": "An elegant evening dress perfect for parties.",
+    "discountPercentage": 15,
+    "rating": "4.7",
+    "sku": "DRESS-ELE-001",
+    "createdAt": "2025-06-11T23:16:14.020Z",
+    "updatedAt": "2025-06-11T23:16:14.020Z"
 }
 ```
 
@@ -293,6 +461,8 @@ Update a product.
   "category": { "id": 1, "categoryName": "Perfume" },
   "price": 19.99,
   "mainImage": "url",
+  "secondaryImages": [],
+  "tags": [],
   "description": "desc",
   "discountPercentage": 0,
   "rating": 4.5,
