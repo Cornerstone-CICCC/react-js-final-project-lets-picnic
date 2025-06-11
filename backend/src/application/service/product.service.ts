@@ -23,6 +23,10 @@ export class ProductService {
     return this.productRepository.getProductsByCategoryId(categoryId);
   }
 
+  async getProductByTagName(tagName: string): Promise<Product[]> {
+    return this.productRepository.getProductByTagName(tagName);
+  }
+
   async addProduct(data: ProductCreateInput): Promise<Product | null> {
     return this.productRepository.createProduct(data);
   }

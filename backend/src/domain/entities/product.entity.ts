@@ -1,4 +1,6 @@
 import { Category } from "./category.entity";
+import { SecondaryImage } from "./secondaryImage.entity";
+import { Tag } from "./tag.entity";
 
 export class Product {
   constructor(
@@ -6,7 +8,9 @@ export class Product {
     private _productName: string,
     private _category: Category,
     private _price: number,
-    private _image: string,
+    private _mainImage: string,
+    private _secondaryImages: SecondaryImage[] = [],
+    private _productTags: Tag[] = [],
     private _description: string,
     private _discountPercentage: number,
     private _rating: number,
@@ -35,8 +39,8 @@ export class Product {
     return this._price;
   }
 
-  get image(): string {
-    return this._image;
+  get mainImage(): string {
+    return this._mainImage;
   }
 
   get description(): string {
@@ -63,6 +67,14 @@ export class Product {
     return this._updatedAt;
   }
 
+  get secondaryImages(): SecondaryImage[] {
+    return this._secondaryImages;
+  }
+
+  get tags(): Tag[] {
+    return this._productTags;
+  }
+
   updateProductName(name: string): void {
     this._productName = name;
     this.touchUpdatedAt();
@@ -79,7 +91,7 @@ export class Product {
   }
 
   updateImage(image: string): void {
-    this._image = image;
+    this._mainImage = image;
     this.touchUpdatedAt();
   }
 
@@ -113,7 +125,15 @@ export class Product {
       productName: this._productName,
       category: this._category.toPlainObject(),
       price: this._price,
-      image: this._image,
+      mainImage: this._mainImage,
+      secondaryImages: this._secondaryImages.map(img => ({
+        id: img.id,
+        image: img.image,
+      })),
+      tag: this._productTags.map(tag => ({
+        id: tag.id,
+        tagName: tag.tagName,
+      })),
       description: this._description,
       discountPercentage: this._discountPercentage,
       rating: this._rating,
@@ -121,5 +141,5 @@ export class Product {
       createdAt: this._createdAt,
       updatedAt: this._updatedAt,
     };
-  }
+  };
 }

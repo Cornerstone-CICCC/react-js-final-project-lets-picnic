@@ -10,6 +10,7 @@ export function createProductController(productService: ProductService) {
         res.status(200).json(products.map(product => product.toPlainObject()));
       } catch (err) {
         res.status(500).json({ error: "Failed to fetch products" });
+        console.error(err)
       }
     },
 
@@ -64,12 +65,29 @@ export function createProductController(productService: ProductService) {
       }
     },
 
+    getProductByTagName: async (req: Request, res: Response) => {
+      const tagName = req.params.tagName;
+      try {
+        const products =
+          await productService.getProductByTagName(tagName);
+        if (!products) {
+          res.status(404).json({ error: "Products not found" });
+          return;
+        }
+        res.status(200).json(products.map(product => product.toPlainObject()));
+      } catch (err) {
+        res
+          .status(500)
+          .json({ error: "Failed to fetch products by tag" });
+      }
+    },
+
     addProduct: async (req: Request, res: Response) => {
       const {
         productName,
         categoryId,
         price,
-        image,
+        mainImage,
         description,
         discountPercentage,
         rating,
@@ -79,7 +97,7 @@ export function createProductController(productService: ProductService) {
         !productName ||
         !categoryId ||
         !price ||
-        !image ||
+        !mainImage ||
         !description ||
         !rating ||
         !sku
@@ -92,7 +110,7 @@ export function createProductController(productService: ProductService) {
           productName,
           categoryId,
           price,
-          image,
+          mainImage,
           description,
           discountPercentage,
           rating,
