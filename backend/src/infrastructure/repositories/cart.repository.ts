@@ -129,6 +129,8 @@ const getCartByUserId = async (userId: number): Promise<Cart> => {
         category,
         row.price,
         row.main_image,
+        [],
+        [],
         row.description,
         row.discount_percentage,
         row.rating,
